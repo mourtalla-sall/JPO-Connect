@@ -1,5 +1,5 @@
 import { Routes, Route, Link } from 'react-router-dom'
-import Connexion from './Connexion'
+import Connexion from './component/Connexion'
 
 
 function Home() {
