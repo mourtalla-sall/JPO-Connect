@@ -1,5 +1,6 @@
 import { Routes, Route, Link } from 'react-router-dom'
 import Connexion from './component/Connexion'
+import Inscription from './component/Inscription'
 
 
 function Home() {
@@ -17,6 +18,8 @@ export default function App() {
         <Link to="/">Accueil</Link> |{" "}
         <Link to="/about">À propos</Link>
         <Link to="/connexion">Connexion</Link>
+        <Link to="/Inscription">Inscription</Link>
+
 
       </nav>
 
@@ -24,6 +27,8 @@ export default function App() {
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/connexion" element={<Connexion />} />
+        <Route path="/Inscription" element={<Inscription />} />
+
       </Routes>
     </>
   )
