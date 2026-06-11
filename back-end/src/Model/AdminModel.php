@@ -6,7 +6,7 @@ use JPOConnect\Database\Database;
 
 use \PDO;
 
-class jpo{
+class AdminModel{
 
     private $pdo;
 
@@ -19,16 +19,28 @@ class jpo{
         return trim(htmlspecialchars($input));
     }
 
-    public function createjpo($nom, $description, $dateDebut, $dateFin, $image ) {
-        $data = $this->pdo->prepare('INSERT INTO jpo (nom, description, dateDebut, dateFin, image ) VALUES (:nom, :description, :dateDebut, :dateFin, :image)');
-        $data->bindValue(':nom', $this->securityInput($nom), PDO::PARAM_STR);
+    public function createJpo($name, $description, $heureDebut, $heureFin, $image, $date ) {
+        $data = $this->pdo->prepare('INSERT INTO jpo (name, description, heureDebut, heureFin, image, date ) VALUES (:name, :description, :heureDebut, :heureFin, :image, :date)');
+        $data->bindValue(':name', $this->securityInput($name), PDO::PARAM_STR);
         $data->bindValue(':description', $this->securityInput($description), PDO::PARAM_STR);
-        $data->bindValue(':dateDebut', $this->securityInput($dateDebut), PDO::PARAM_STR);
-        $data->bindValue(':dateFin', $this->securityInput($dateFin), PDO::PARAM_STR);
+        $data->bindValue(':heureDebut', $this->securityInput($heureDebut), PDO::PARAM_STR);
+        $data->bindValue(':heureFin', $this->securityInput($heureFin), PDO::PARAM_STR);
         $data->bindValue(':image', $this->securityInput($image), PDO::PARAM_STR);
+         $data->bindValue(':date', $this->securityInput( $date), PDO::PARAM_STR);
    
         return $data->execute();
     }
+    // public function createCommentaire($name, $description, $heureDebut, $heureFin, $image ) {
+    //     $data = $this->pdo->prepare('INSERT INTO jpo (name, description, heureDebut, heureFin, image ) VALUES (:name, :description, :heureDebut, :heureFin, :image)');
+    //     $data->bindValue(':name', $this->securityInput($name), PDO::PARAM_STR);
+    //     $data->bindValue(':description', $this->securityInput($description), PDO::PARAM_STR);
+    //     $data->bindValue(':heureDebut', $this->securityInput($heureDebut), PDO::PARAM_STR);
+    //     $data->bindValue(':heureFin', $this->securityInput($heureFin), PDO::PARAM_STR);
+    //     $data->bindValue(':image', $this->securityInput($image), PDO::PARAM_STR);
+
+   
+    //     return $data->execute();
+    // }
 
     public function getAllJpo() {
         $data = $this->pdo->prepare('SELECT * FROM jpo ');
@@ -48,25 +60,44 @@ class jpo{
         return $data->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function update($id, $nom, $description, $dateDebut, $dateFin, $image ) {
-        $data = $this->pdo->prepare('UPDATE jpo SET nom=:nom, description=:description, dateDebut=:dateDebut, dateFin=:dateFin, image=:image WHERE id=:id');
-        $data->bindValue(':nom', $this->securityInput($nom), PDO::PARAM_STR);
+    public function updateJpo($id, $name, $description, $heureDebut, $heureFin, $image, $date ) {
+        $data = $this->pdo->prepare('UPDATE jpo SET name=:name, description=:description, heureDebut=:heureDebut, heureFin=:heureFin, image=:image date=:date WHERE id=:id');
+        $data->bindValue(':name', $this->securityInput($name), PDO::PARAM_STR);
         $data->bindValue(':description', $this->securityInput($description), PDO::PARAM_STR);
-        $data->bindValue(':dateDebut', $this->securityInput($dateDebut), PDO::PARAM_STR);
-        $data->bindValue(':dateFin', $this->securityInput( $dateFin), PDO::PARAM_INT);
+        $data->bindValue(':heureDebut', $this->securityInput($heureDebut), PDO::PARAM_STR);
+        $data->bindValue(':heureFin', $this->securityInput( $heureFin), PDO::PARAM_INT);
         $data->bindValue(':image', $this->securityInput( $image), PDO::PARAM_INT);
+        $data->bindValue(':date', $this->securityInput( $date), PDO::PARAM_INT);
         $data->bindValue(':id', $id,PDO::PARAM_INT);
         return $data->execute();
     }
+    // public function updateCommentaire($id, $name, $description, $heureDebut, $heureFin, $image ) {
+    //     $data = $this->pdo->prepare('UPDATE jpo SET name=:name, description=:description, heureDebut=:heureDebut, heureFin=:heureFin, image=:image WHERE id=:id');
+    //     $data->bindValue(':name', $this->securityInput($name), PDO::PARAM_STR);
+    //     $data->bindValue(':description', $this->securityInput($description), PDO::PARAM_STR);
+    //     $data->bindValue(':heureDebut', $this->securityInput($heureDebut), PDO::PARAM_STR);
+    //     $data->bindValue(':heureFin', $this->securityInput( $heureFin), PDO::PARAM_INT);
+    //     $data->bindValue(':image', $this->securityInput( $image), PDO::PARAM_INT);
+    //     $data->bindValue(':id', $id,PDO::PARAM_INT);
+    //     return $data->execute();
+    // }
 
-    public function delete($id) {
+    public function deleteJpo($id) {
         $data = $this->pdo->prepare('DELETE FROM jpo WHERE id = :id');
         $data->bindValue(':id', $id, PDO::PARAM_INT);
         return $data->execute();
     }
+    public function deleteCommentaire($id) {
+        $data = $this->pdo->prepare('DELETE FROM commentaire WHERE id = :id');
+        $data->bindValue(':id', $id, PDO::PARAM_INT);
+        return $data->execute();
+    }
 
-    public function count() {
+    public function countJpo() {
         return $this->pdo->query('SELECT COUNT(*) FROM jpo')->fetchColumn();
+    }
+    public function countCommentaire() {
+        return $this->pdo->query('SELECT COUNT(*) FROM commentaire')->fetchColumn();
     }
 }
 ?>
