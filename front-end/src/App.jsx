@@ -1,5 +1,5 @@
 import { Routes, Route, Link } from 'react-router-dom'
-import Connexion from './component/Connexion'
+import Connexion from './component1/Connexion'
 
 
 function Home() {
@@ -17,13 +17,21 @@ export default function App() {
         <Link to="/">Accueil</Link> |{" "}
         <Link to="/about">À propos</Link>
         <Link to="/connexion">Connexion</Link>
+        <label for="site-search">Rechercher sur le site&nbsp;:</label>
+<input type="search" id="site-search" name="q" />
 
+<button>Rechercher</button>
+        
       </nav>
 
-      <Routes>
+      <Routes> 
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/connexion" element={<Connexion />} />
+
+        {/* {user.role === admin &&  
+         // <Route path="/admin" element={<Admin />} />
+        } */}
       </Routes>
     </>
   )
